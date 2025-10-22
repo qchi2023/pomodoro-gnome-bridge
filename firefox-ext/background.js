@@ -1,53 +1,52 @@
-/*
- * Background service worker for the Firefox extension.  This file maintains
- * a WebSocket connection to the local relay (ws://127.0.0.1:8787) and
- * coordinates communication between the content script running on
- * pomodoro-tracker.com and the GNOME Shell extension via the relay.  It
- * forwards state updates from the content script to the relay and relays
- * commands from the GNOME extension to all active pomodoro-tracker tabs.
- */
-
 let ws = null;
 
-// Establish or re-establish a WebSocket connection.  When connected the
-// extension identifies itself as a "browser" client.  Connection loss will
-// trigger an automatic reconnection attempt.
+console.log("\U0001f527 Background script loaded");
+
+// Establish or re-establish a WebSocket connection
 function connect() {
+  console.log("\U0001f310 Connecting to WebSocket...");
   ws = new WebSocket('ws://127.0.0.1:8787');
+
   ws.addEventListener('open', () => {
+    console.log("\u2705 WebSocket connected");
     ws.send(JSON.stringify({ type: 'hello', client: 'browser' }));
   });
+
   ws.addEventListener('message', (event) => {
+    console.log("\U0001f4e8 Got message from relay:", event.data);
     try {
       const msg = JSON.parse(event.data);
       if (msg.type === 'command') {
-        // Forward command to all tabs hosting pomodoro-tracker.com.
         browser.tabs.query({ url: '*://pomodoro-tracker.com/*' }).then((tabs) => {
           for (const tab of tabs) {
             browser.tabs.sendMessage(tab.id, msg).catch(() => {});
           }
         });
       }
-    } catch {
-      // Ignore parse errors.
+    } catch (err) {
+      console.warn("\u274c Failed to parse relay message:", err);
     }
   });
+
   ws.addEventListener('close', () => {
-    // Attempt to reconnect after a short delay.
+    console.log("\U0001f50c WebSocket closed, reconnecting...");
     setTimeout(connect, 1500);
   });
-  ws.addEventListener('error', () => {
+
+  ws.addEventListener('error', (e) => {
+    console.error("\U0001f4a5 WebSocket error:", e);
     try { ws.close(); } catch {};
   });
 }
 
 connect();
 
-// When the content script sends a state update, forward it to the relay if
-// the socket is open.  Messages from other sources are ignored.
+// Listen for messages from the content script
 browser.runtime.onMessage.addListener((msg) => {
+  console.log("\U0001f4e4 Got message from content script:", msg);
   if (!ws || ws.readyState !== WebSocket.OPEN) return;
   if (msg && msg.type === 'state') {
+    console.log("\u27a1\ufe0f Forwarding state to relay:", msg);
     ws.send(JSON.stringify(msg));
   }
 });
