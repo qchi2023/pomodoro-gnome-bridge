@@ -1,0 +1,10 @@
+.pomodoro-work { background-color: #c62828; color: #ffffff; }
+.pomodoro-break { background-color: #2e7d32; color: #ffffff; }
+.pomodoro-paused { background-color: #ffffff; color: #000000; }
+
+.pomodoro-work .panel-button,
+.pomodoro-break .panel-button { color: #ffffff; }
+
+.pomodoro-paused .panel-button { color: #000000; }
+
+.pomo-label { font-weight: 600; padding: 0 6px; }
