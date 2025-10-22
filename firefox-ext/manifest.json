@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Pomodoro Tracker Bridge",
+  "version": "1.0.0",
+  "description": "Syncs pomodoro-tracker.com timer/task with GNOME via local WebSocket; accepts Start/Pause commands.",
+  "host_permissions": ["*://pomodoro-tracker.com/*"],
+  "permissions": ["scripting"],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [
+    {
+      "matches": ["*://pomodoro-tracker.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": { "48": "icon48.png", "96": "icon96.png" }
+}
