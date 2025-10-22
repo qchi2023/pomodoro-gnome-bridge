@@ -1,0 +1,10 @@
+[Unit]
+Description=Pomodoro GNOME/Firefox relay
+
+[Service]
+Type=simple
+ExecStart=%h/.venvs/pomo-relay/bin/python %h/pomodoro-gnome-bridge/relay/server.py
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
