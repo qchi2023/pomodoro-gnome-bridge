@@ -1,0 +1,8 @@
+{
+  "uuid": "pomodoro-panel@you",
+  "name": "Pomodoro Panel",
+  "description": "Top bar Pomodoro synced with pomodoro-tracker.com. Start/Pause controls. Colors: red(work) / green(break) / white(paused).",
+  "shell-version": ["42", "43", "44", "45"],
+  "version": 1,
+  "url": "https://gjs.guide/extensions/development/creating.html"
+}
