@@ -1,7 +1,0 @@
-{
-  "uuid": "pomodoro-panel@you",
-  "name": "Pomodoro Panel",
-  "description": "Top bar Pomodoro synced with pomodoro-tracker.com. Start/Pause controls with work/break/paused/login color states.",
-  "shell-version": ["42", "43", "44", "45", "46"],
-  "version": 1
-}
