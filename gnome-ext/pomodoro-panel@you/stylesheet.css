@@ -1,10 +1,8 @@
-.pomodoro-work { background-color: #c62828; color: #ffffff; }
-.pomodoro-break { background-color: #2e7d32; color: #ffffff; }
-.pomodoro-paused { background-color: #ffffff; color: #000000; }
+/* Panel background hints by state */
+.pomodoro-work  { background-color:#c62828; color:#fff; }
+.pomodoro-break { background-color:#2e7d32; color:#fff; }
+.pomodoro-paused{ background-color:#e0e0e0; color:#222; }
+.pomodoro-login { background-color:#eeeeee; color:#555; }
 
-.pomodoro-work .panel-button,
-.pomodoro-break .panel-button { color: #ffffff; }
-
-.pomodoro-paused .panel-button { color: #000000; }
-
-.pomo-label { font-weight: 600; padding: 0 6px; }
+/* Label styling */
+.pomo-label { padding: 0 8px; font-weight: 600; }
